@@ -32,7 +32,7 @@ app.use(function(req,res,next) {
 });
 
 //creating a http server on PORT
-server.listen(PORT,'127.0.0.0',() => console.log(`Server has started on PORT ${PORT}`))
+server.listen(PORT,'127.0.0.1',() => console.log(`Server has started on PORT ${PORT}`))
 
 
 //check if the server is up and running
