@@ -1,54 +1,60 @@
-<!--template>
+<!--<template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
-</template>
-
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style-->
-
-
-
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
     <SignIn />
   </div>
+</template>-->
+
+<template>
+ <div id="app">
+      <!--<router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>-->
+    <router-view/>
+ </div>
 </template>
 
-<script>
-import SignIn from './components/signUp.vue'
+<!--<template>
+  <div class="app">
+    helllloooo!!!
+    <!--<img alt="Vue logo" src="../assets/logo.png">-->
+    <!--<HelloWorld msg="Welcome to Your Vue.js App"/>
+  </div>
+</template>-->
+
+<!--<script>
+import SignIn from './components/SignUp.vue'
 export default {
   name: 'app',
   components: {
     SignIn
   }
 }
+</script>-->
+
+<script>
+import SignIn from './components/signUp.vue'
+//import Homee from './views/Home.vue'
+
+    export default {
+        name: 'app',
+        /*components: {
+            SignIn
+        },
+        /*name: 'new',
+        components: {
+            Homee
+        },*/
+        data() {
+            return {
+                authenticated: false,
+                mockAccount: {
+                    username: "abcd@gmail.com",
+                    password: "password"
+                }
+            }
+        }
+    }
 </script>
-
-
-
 
 <style lang="scss">
 #app {
@@ -66,7 +72,7 @@ export default {
   #app {
     font-family: Tahoma;
     font-size: 1.6rem;
-    color: #222;
+    color: rgb(5, 5, 5);
     background-color: #092525;
     height: 100vh;
     display: flex;
@@ -74,55 +80,3 @@ export default {
     align-items: center;
   }
   </style>
-
-
-  <!--template>
-    <div id="app">
-        <div id="nav">
-            <router-link v-if="authenticated" to="/login" v-on:keydown.enter="logout()" replace>Logout</router-link>
-        </div>
-        <router-view @authenticated="setAuthenticated" />
-    </div>
-</template>
-
-<script>
-    export default {
-        name: 'App',
-        data() {
-            return {
-                authenticated: false,
-                mockAccount: {
-                    username: "root",
-                    password: "password"
-                }
-            }
-        },
-        mounted() {
-            if(!this.authenticated) {
-                this.$router.replace({ name: "login" });
-            }
-        },
-        methods: {
-            setAuthenticated(status) {
-                this.authenticated = status;
-            },
-            logout() {
-                this.authenticated = false;
-            }
-        }
-    }
-</script>
-
-<style>
-    body {
-        background-color: #F0F0F0;
-    }
-    h1 {
-        padding: 0;
-        margin-top: 0;
-    }
-    #app {
-        width: 1024px;
-        margin: auto;
-    }
-</style-->

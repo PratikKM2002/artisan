@@ -1,62 +1,3 @@
-<!--template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<!--style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style-->
-
-
 <template>
   <article>
     <div class="container" :class="{'sign-up-active' : signUp}">
@@ -85,23 +26,61 @@ a {
       <form class="sign-in" action="#">
         <h2>Sign In</h2>
         <div>Use your account</div>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
+        <!--<input type="text" name="username" v-model="input.username" placeholder="Username" />
+        <input type="password" name="password" v-model="input.password" placeholder="Password" />
+        <button type="button" v-on:click="login()">
+          name="useremailid" v-model="input.username"
+          name="password" v-model="input.password"-->
+        <input type="email" name="username" v-model="input.username" placeholder="Email" />
+        <input type="password" name="password" v-model="input.password" placeholder="Password" />
+        <!--<input type="email" name="username" placeholder="Email" />
+        <input type="password" name="password" placeholder="Password" />
+        <div v-if="username === Login.mockAccount.username">
+            <router-link></router-link>-->
         <a href="#">Forgot your password?</a>
-        <button>Sign Up</button>
+        <button v-on:click="login()">Sign In</button>
       </form>
     </div>
   </article>
 </template>
 
 <script>
-  export default {
-    data: () => {
-      return {
-        signUp: false
-      }
+    export default {
+        name: 'Login',
+        data() {
+            return {
+                input: {
+                    username: "",
+                    password: ""
+                },
+                signUp: false
+            }
+        },
+        methods: {
+            login() {
+            /**
+             * 1) import axios
+             * 2) make post request with backend server
+             */
+                if(this.input.username != "" && this.input.password != "") {
+                    if(this.input.username == this.$parent.mockAccount.username && this.input.password == this.$parent.mockAccount.password) {
+                        //this.$emit("authenticated", true);
+                        console.log("The username and password is correct");
+                       // window.location("http://localhost:8082/Home.vue");
+                       //<Homee />
+                        this.$router.push({ path: '/home' })
+                       // <a href="/components/Home.vue"></a>
+                    } else {
+                        console.log("The username and / or password is incorrect");
+                        alert("Username or password is incorrect!")
+                    }
+                } else {
+                    console.log("A username and password must be present");
+                    alert("Username or password must be present!")
+                }
+            }
+        }
     }
-  }
 </script>
 
 <style lang="scss" scoped>
@@ -275,50 +254,4 @@ a {
 
 
 
-<!--template>
-    <div id="login">
-        <h1>Login</h1>
-        <input type="text" name="username" v-model="input.username" placeholder="Username" />
-        <input type="password" name="password" v-model="input.password" placeholder="Password" />
-        <button type="button" v-on:click="login()">Login</button>
-    </div>
-</template>
 
-<script>
-    export default {
-        name: 'Login',
-        data() {
-            return {
-                input: {
-                    username: "",
-                    password: ""
-                }
-            }
-        },
-        methods: {
-            login() {
-                if(this.input.username != "" && this.input.password != "") {
-                    if(this.input.username == this.$parent.mockAccount.username && this.input.password == this.$parent.mockAccount.password) {
-                        this.$emit("authenticated", true);
-                        this.$router.replace({ name: "secure" });
-                    } else {
-                        console.log("The username and / or password is incorrect");
-                    }
-                } else {
-                    console.log("A username and password must be present");
-                }
-            }
-        }
-    }
-</script>
-
-<style scoped>
-    #login {
-        width: 500px;
-        border: 1px solid #CCCCCC;
-        background-color: #FFFFFF;
-        margin: auto;
-        margin-top: 200px;
-        padding: 20px;
-    }
-</style-->
