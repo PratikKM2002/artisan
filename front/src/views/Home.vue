@@ -25,12 +25,12 @@ export default {
     </div>  
     <div class="new">
     <h1>HOME PAGE</h1><br>
-    <button class="btn rm"> RAW MATERIAL </button>
-    <button class="btn em"> EMPLOYEE </button>
-    <button class="btn dis">DISTRIBUTOR </button>
-    <button class="btn prod">PRODUCTS</button>
-    <button class="btn ord">ORDERS</button>
-    <button class="btn gl">GAINLOSS</button>
+    <router-link to="/RawMaterial.vue"><button class="btn rm"> RAW MATERIAL </button></router-link>
+    <router-link to="/about"><button class="btn em"> EMPLOYEE </button></router-link>
+    <router-link to="/distributor"><button class="btn dis">DISTRIBUTOR </button></router-link>
+    <router-link to="/about"><button class="btn prod">PRODUCTS</button></router-link>
+    <router-link to="/about"><button class="btn ord">ORDERS</button></router-link>
+    <router-link to="/about"><button class="btn gl">GAINLOSS</button></router-link>
     </div>
     <router-view/>
 </div>

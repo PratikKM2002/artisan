@@ -44,9 +44,9 @@ app.get('/',(req,res) => {
 
 //REGISTERING ROUTES
 app.use('/distributor', distributor) // CRUD
-app.use('/order',order) // 
-app.use('/raw_materials',raw_materials)
-app.use('/employee',employee)
-app.use('/joined',joined)
-app.use('/products',products)
-app.use('/gain_loss',gain_loss)
+app.use('/order',order) // CRUD
+app.use('/raw_materials',raw_materials) //CRUD
+app.use('/employee',employee) //CRUD
+app.use('/joined',joined) //CRUD
+app.use('/products',products) //CRUD
+app.use('/gain_loss',gain_loss) //CRUD

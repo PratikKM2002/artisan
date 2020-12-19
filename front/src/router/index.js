@@ -29,7 +29,8 @@ export default router*/
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+//import Home from '../views/Home.vue'
+import axios from 'axios'
 
 Vue.use(VueRouter)
 
@@ -49,7 +50,13 @@ const routes = [
     path: '/about',
     name: 'About',
     component: () => import('../views/About.vue')
+  },
+  {
+      path: '/distributor',
+      name: 'dist',
+      component: () => import('../views/Distributor.vue')
   }
+  
 ]
 
 const router = new VueRouter({
@@ -58,4 +65,6 @@ const router = new VueRouter({
   routes
 })
 
+Vue.prototype.$http = axios.create({baseURL:'http://127.0.0.1:5000/'})
 export default router
+

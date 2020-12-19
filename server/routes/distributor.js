@@ -2,9 +2,21 @@ import { con } from "../db/db.js"
 import express from 'express';
 var router = express.Router()
 
-router.use('/', () => {
-  console.log('In /distributor file')
+router.get('/', () =>{
+  console.log("connected")
 })
+
+router.post('/create', () => {
+  console.log('In /distributor file')
+
+})
+
+router.post('/read', () => {
+  console.log('In /distributor file')
+  
+})
+
+
 
 export default router;
 
