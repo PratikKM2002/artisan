@@ -7,12 +7,28 @@
       <h2><router-link to="/home">Home</router-link></h2>
       </div>
       <div> 
-        <input type="text" name="DistributorName" v-model="input.DistributorName" placeholder="Distributor Name" /><br>
-        <input type="tel" name="DistContactNum" v-model="input.DistContactNum" placeholder="Contact number" /><br>
-        <input type="number" name="PresentOrder" v-model="input.PresentOrder" placeholder="Present Order"/><br>
+      <h4>
+        Distributor Name:<input type="text" name="DistributorName" v-model="input.DistributorName" /><br>
+        Distributor Contact Number:<input type="tel" name="DistContactNum" v-model="input.DistContactNum"/><br>
+        Present Order<input type="number" name="PresentOrder" v-model="input.PresentOrder" /><br>
         <button v-on:click="Insert()">Insert</button>
+      </h4>
+      </div>
+      <div> 
+      <h4>
+        Old Distributor Name:<input type="text" name="OldDistributorName" v-model="input.OldDistributorName" /><br>
+        New Distributor Name:<input type="text" name="NewDistributorName" v-model="input.NewDistributorName" /><br>
+        <button v-on:click="Update()">Update</button>
+      </h4>
       </div>
       <router-view/>
+
+      <div> 
+      <h4>
+      Distributor Name:<input type="text" name="DDistributorName" v-model="input.DDistributorName" /><br>
+      <button v-on:click="Delete()">Delete</button>
+      </h4>
+      </div>
     </div>
 </template>
 
@@ -35,7 +51,10 @@ export default {
                 input: {
                     DistributorName: "",
                     DistContactNum: "",
-                    PresentOrder:""
+                    PresentOrder:"",
+                    OldDistributorName:"",
+                    NewDistributorName:"",
+                    DDistributorName:""
                 }               
             }
         },
@@ -56,9 +75,40 @@ export default {
             .catch(function (error) {
             console.log(error);
             });
-            }
-        }
-
+          },
+            Update() {
+            /**
+             * 1) import axios
+             * 2) make post request with backend server
+             */
+            this.$http.post('/distributor/update', {
+            OldDistributorName: this.input.OldDistributorName,
+            NewDistributorName: this.input.NewDistributorName
+            })
+            .then(function (response) {
+            console.log('success');
+            })
+            .catch(function (error) {
+            console.log(error);
+            });
+          },
+          Delete() {
+            /**
+             * 1) import axios
+             * 2) make post request with backend server
+             */
+            this.$http.post('/distributor/delete', {
+            DDistributorName: this.input.DDistributorName
+            
+            })
+            .then(function (response) {
+            console.log('success');
+            })
+            .catch(function (error) {
+            console.log(error);
+            });
+          }
+        }     
 }
 </script>
 
