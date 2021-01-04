@@ -1,5 +1,6 @@
 <template>
   <article>
+    <div id="app">
     <div class="container" :class="{'sign-up-active' : signUp}">
       <div class="overlay-container">
         <div class="overlay">
@@ -40,6 +41,7 @@
         <a href="#">Forgot your password?</a>
         <button v-on:click="login()">Sign In</button>
       </form>
+    </div>
     </div>
   </article>
 </template>

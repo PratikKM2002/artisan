@@ -55,8 +55,12 @@ const routes = [
       path: '/distributor',
       name: 'dist',
       component: () => import('../views/Distributor.vue')
+  },
+  {
+    path: '/product',
+    name: 'product',
+    component: () => import('../views/Product.vue')
   }
-  
 ]
 
 const router = new VueRouter({

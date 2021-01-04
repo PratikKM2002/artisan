@@ -25,10 +25,10 @@ export default {
     </div>  
     <div class="new">
     <h1>HOME PAGE</h1><br>
-    <router-link to="/RawMaterial.vue"><button class="btn rm"> RAW MATERIAL </button></router-link>
+    <router-link to="/RawMaterial"><button class="btn rm"> RAW MATERIAL </button></router-link>
     <router-link to="/about"><button class="btn em"> EMPLOYEE </button></router-link>
     <router-link to="/distributor"><button class="btn dis">DISTRIBUTOR </button></router-link>
-    <router-link to="/about"><button class="btn prod">PRODUCTS</button></router-link>
+    <router-link to="/products"><button class="btn prod">PRODUCTS</button></router-link>
     <router-link to="/about"><button class="btn ord">ORDERS</button></router-link>
     <router-link to="/about"><button class="btn gl">GAINLOSS</button></router-link>
     </div>
@@ -98,56 +98,67 @@ export default {
 
 .btn {
   border: none;
-  background-color:white;
+  //background-color:#02e46b;
+  border-radius: 20px;
+  background: linear-gradient(to bottom right, #7FD625, #009345);
+  //font-family: 'Avenir', Helvetica, Arial, sans-serif;
   padding: 14px 28px;
   font-size: 16px;
   cursor: pointer;
   display: inline-block;
   position: absolute;
-  top: 200px;
-  left: 80px;
+  width: 180px;
+  margin-top: 120px;
+  //margin: 20px;
+  //left: 200px;
+  color:white;// green;
+  //box-shadow: 0 4px #999;
+  /*transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;*/
 }
 .rm {
   position: absolute;
   top: 200px;
   left: 50px;
   margin-top: 120px;
-  color: green;
+  //color: green;
 }
 .em {
   position: absolute;
   top: 200px;
   left: 280px;
   margin-top: 120px;
-  color: green;
+  //color: green;
 }
 .dis {
   position: absolute;
   top: 200px;
   left: 480px;
   margin-top: 120px;
-  color: green;
+  //color: green;
 }
 .prod {
   position: absolute;
   top: 200px;
   left: 700px;
   margin-top: 120px;
-  color: green;
+  //color: green;
 }
 .ord {
   position: absolute;
   top: 200px;
   left: 900px;
   margin-top: 120px;
-  color: green;
+  //color: green;
 }
 .gl {
   position: absolute;
   top: 200px;
   left: 1080px;
   margin-top: 120px;
-  color: green;
+  //color: green;
 }
 
 /*.btn:hover {background: #eee;}

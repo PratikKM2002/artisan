@@ -2,21 +2,21 @@
 <div id="total" >
   <div >
       <div>
-        <h1>Distributor Details</h1>
+        <h1>Employee Details</h1>
       </div>
       <div class="new3">
-      <button v-on:click="addRow()" >Create DIstributor 2 <i class="fas fa-arrow-alt-circle-right"></i></button>
+      <button v-on:click="addRow()" >Create Employee <i class="fas fa-arrow-alt-circle-right"></i></button>
       </div>
       <table id="tablepart">    
         <tr>
-          <th>Distributor Name</th>
-          <th>Contact Number</th>
-          <th>Present Order</th>
-          <th>Actions</th>
+          <th> </th>
+          <th> </th>
+          <th> </th>
+          <th> </th>
         </tr>
-          <tr v-for='dist in Distributor' :key="dist.distributor_id" >
-            <td>{{ dist.distributor_name }}</td>
-            <td>{{ dist.contact_no }}</td>
+          <tr v-for='emp in Employee' :key="emp.Employee_id" >
+            <td>{{ emp.EmployeeName }}</td>
+            <td>{{ emp. }}</td>
             <td>{{ dist.order_id }}</td>
             <td><div class="new5"><button @click="UpdMsg()" class="upd1"><i class="fas fa-edit"></i></button><button @click="DelMsg()" class="upd2"><i class="fas fa-trash"></i></button></div></td>
         </tr>
