@@ -1,171 +1,66 @@
-<!--<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <SignIn />
-  </div>
-</template>-->
+<!--template>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <div class="d-flex align-center">
+        <v-img
+          alt="Vuetify Logo"
+          class="shrink mr-2"
+          contain
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          transition="scale-transition"
+          width="40"
+        />
 
-<template>
- 
-      <!--<router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>-->
-    <router-view/>
- 
+        <v-img
+          alt="Vuetify Name"
+          class="shrink mt-1 hidden-sm-and-down"
+          contain
+          min-width="100"
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
+          width="100"
+        />
+      </div>
+
+      <v-spacer></v-spacer>
+
+      <v-btn
+        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+        text
+      >
+        <span class="mr-2">Latest Release</span>
+        <v-icon>mdi-open-in-new</v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <v-main>
+      <HelloWorld/>
+    </v-main>
+  </v-app>
 </template>
 
-<!--<template>
-  <div class="app">
-    helllloooo!!!
-    <!--<img alt="Vue logo" src="../assets/logo.png">-->
-    <!--<HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
-</template>-->
-
-<!--<script>
-import SignIn from './components/SignUp.vue'
-export default {
-  name: 'app',
-  components: {
-    SignIn
-  }
-}
-</script>-->
-
 <script>
-import SignIn from './components/signUp.vue'
-//import Homee from './views/Home.vue'
+import HelloWorld from './components/HelloWorld';
 
-    export default {
-        name: 'app',
-        /*components: {
-            SignIn
-        },
-        /*name: 'new',
-        components: {
-            Homee
-        },*/
-        data() {
-            return {
-                authenticated: false,
-                mockAccount: {
-                    username: "abcd@gmail.com",
-                    password: "password"
-                }
-            }
-        }
-    }
-</script>
+export default {
+  name: 'App',
 
-<!--style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  #app {
-    font-family: Tahoma;
-    font-size: 1.6rem;
-    color: rgb(5, 5, 5);
-    background-color: #092525;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  </style-->
+  components: {
+    HelloWorld,
+  },
 
+  data: () => ({
+    //
+  }),
+};
+</script-->
 
-  <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  #app {
-    font-family: Tahoma;
-    font-size: 1.6rem;
-    color: rgb(5, 5, 5);
-    background-color: #092525;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  #total{
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align:center;
-  //margin-left: 400px;
-  color: #2c3e50;
-  margin-top: 60px;
-  justify-content: center;
-  align-items: center;
-  //background: linear-gradient(to bottom, #ffffff, rgb(218, 216, 216));
-  background-color: white;
-  height: 100vh;
-  margin-bottom:70px
-  }
-  #total2{
-  text-align:left;
-  margin-left: 580px;
-  line-height: 40px;
-  //padding: 14px 28px;
-  /*color: #2c3e50;
-  margin-top: 60px;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(to bottom, #f5f3f3, rgb(218, 216, 216));
-  background-color: white;
-  height: 100vh;*/
-  }
-  #tablepart
-  {
-    table{
-     // width: 100%;
-     justify-content:center;
-     margin-bottom:50 px;
-    align-items: center;
-    }
-    td{
-      height:30 px;
-    }
-    th{
-      width:250px; //180px;
-      height:30px;
-    }
-    tr{
-      background-color: rgb(212, 250, 177);
-    }
-    /*tr{
-    border-radius: 20px;
-    }*/
-    th,td{ 
-    border-radius: 5px;
-    }
-    margin-top: 80px;
-    margin-left:370px;
-    justify-content: center;
-    th {
-    //background-color:#7FD625;// #4CAF50;//
-    background:#07c05e;//#05c960;// #009345;
-    //background: linear-gradient(to bottom right, #7FD625, #009345);
-    color: white;
-    }
-    tr:hover {background-color: #a7ecac;}
-  }
-  </style>
+<template>
+  <v-app>
+    <router-view/>
+  </v-app>
+</template>

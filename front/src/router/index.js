@@ -42,9 +42,9 @@ const routes = [
   },
   {
     path: '/',
-    name: 'signup',
+    name: 'Signup',
     //component: Home
-    component: () => import('../components/signUp.vue')
+    component: () => import('../components/SignUp.vue')
   },
   {
     path: '/about',
@@ -52,12 +52,27 @@ const routes = [
     component: () => import('../views/About.vue')
   },
   {
-      path: '/distributor',
-      name: 'dist',
-      component: () => import('../views/Distributor.vue')
+    path: '/distributor',
+    name: 'dist',
+    component: () => import('../views/Distributor.vue')
   },
   {
-    path: '/product',
+  path: '/RawMaterial',
+  name: 'raw',
+  component: () => import('../views/RawMaterial.vue')
+  },
+  {
+  path: '/employee',
+  name: 'Emp',
+  component: () => import('../views/Employee.vue')
+  },
+  {
+    path: '/order',
+    name: 'ord',
+    component: () => import('../views/Order.vue')
+    },
+  {
+    path: '/products',
     name: 'product',
     component: () => import('../views/Product.vue')
   }

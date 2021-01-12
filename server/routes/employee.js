@@ -2,9 +2,47 @@ import { con } from "../db/db.js"
 import express from 'express';
 var router = express.Router()
 
-router.use('/', () => {
-  console.log('In /order file')
+router.get('/', () => {
+  console.log('connected ')
 })
+router.post('/create', (req, res) => {
+  console.log('In /employee file')
+    var sql = `INSERT INTO EMPLOYEE(emp_name,phone_no ,street_no, street_name, house_no,salary) VALUES ('${req.body['EmployeeName']}', '${req.body['EPhoneNum']}', '${req.body['StreetNumber']}','${req.body['StreetName']}','${req.body['HouseNumber']}','${req.body['Salary']}') `;
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("INSERTED");
+      res.json("Success!")
+    });
+})
+
+router.post('/update', (req,res) => {
+  console.log('In /employee file')
+ 
+    var sql = `UPDATE EMPLOYEE SET emp_name = '${req.body['NewEmployeeName']}',phone_no = '${req.body['ENewPhoneNum']}',street_no = '${req.body['NewStreetNumber']}',street_name = '${req.body['NewStreetName']}',house_no = '${req.body['NewHouseNumber']}',salary = '${req.body['NewSalary']}' WHERE emp_id = '${req.body['EmployeeID']}'`;
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log(result.affectedRows + " record(s) updated");
+    });
+  
+})
+
+router.post('/delete', (req,res) => {
+  console.log('In /employee file')
+    var sql = `DELETE FROM EMPLOYEE WHERE emp_id = '${req.body['DEmpId']}'`;
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("Number of records deleted: " + result.affectedRows);
+    });
+})
+router.get('/read', (req,res) => {
+  console.log('In /employee file')
+  con.query("SELECT * FROM EMPLOYEE", function (err, result, fields) {
+  if (err) throw err;
+  res.json(result);
+  
+});
+})
+
 
 export default router;
 

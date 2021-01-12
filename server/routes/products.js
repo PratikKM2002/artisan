@@ -2,8 +2,56 @@ import { con } from "../db/db.js"
 import express from 'express';
 var router = express.Router()
 
-router.use('/', () => {
-  console.log('In /order file')
+router.get('/', () => {
+  console.log('Connected in /products file')
+})
+
+router.post('/create', (req, res) => {
+  console.log('In /products file')
+    var sql = `INSERT INTO PRODUCT(product_name,product_price ,quantity_made) VALUES ('${req.body['ProductName']}','${req.body['ProductPrice']}', '${req.body['QuantityMade']}') `;
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("INSERTED");
+      res.json("Success!");
+    });
+})
+
+router.post('/update', (req,res) => {
+  console.log('In /products file')
+ 
+    var sql = `UPDATE PRODUCT SET product_name = '${req.body['NewProductName']}',product_price = '${req.body['NewProductPrice']}',quantity_made = '${req.body['NewQuantityMade']}' WHERE product_id = '${req.body['ProductId']}'`;
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log(result.affectedRows + " record(s) updated");
+    });
+  
+})
+
+router.post('/delete', (req,res) => {
+  console.log('In /products file')
+    var sql = `DELETE FROM PRODUCT WHERE product_id = '${req.body['DProductId']}'`;
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("Number of records deleted: " + result.affectedRows);
+    });
+})
+router.get('/read', (req,res) => {
+  console.log('In /products file')
+  con.query("SELECT * FROM PRODUCT", function (err, result, fields) {
+  if (err) throw err;
+  res.json(result);
+  
+});
+})
+
+//to obtain the product names to provide in the dropdown box
+router.get('/read1', (req,res) => {
+  console.log('In /product name file read')
+  con.query("SELECT product_name FROM PRODUCT", function (err, result, fields) {
+  if (err) throw err;
+  res.json(result);
+  
+});
 })
 
 export default router;

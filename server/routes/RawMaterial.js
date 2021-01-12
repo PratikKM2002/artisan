@@ -2,8 +2,45 @@ import { con } from "../db/db.js"
 import express from 'express';
 var router = express.Router()
 
-router.use('/', () => {
-  console.log('In /raw material file')
+router.get('/', () => {
+  console.log('Connected in /raw material file')
+})
+router.post('/create', (req, res) => {
+  console.log('In /RawMaterial file')
+    var sql = `INSERT INTO RAW_MATERIALS(material_name ,manufacturer , phone_no ,mat_price ,mat_quantity) VALUES ('${req.body['MaterialName']}', '${req.body['Manufacturer']}', '${req.body['MPhoneNum']}','${req.body['MaterialQuantity']}','${req.body['MaterialPrice']}') `;
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("INSERTED");
+      res.json("Success!")
+    });
+})
+
+router.post('/update', (req,res) => {
+  console.log('In /RawMaterial file')
+ 
+    var sql = `UPDATE RAW_MATERIALS SET material_name = '${req.body['NewMaterialName']}' , manufacturer = '${req.body['NewManufacturer']}', phone_no = '${req.body['NewMPhoneNum']}' , mat_price = '${req.body['NewMaterialPrice']}' , mat_quantity = '${req.body['NewMaterialQuantity']}' WHERE material_id = '${req.body['MaterialID']}'`;
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log(result.affectedRows + " record(s) updated");
+    });
+  
+})
+
+router.post('/delete', (req,res) => {
+  console.log('In /raw_materials file')
+    var sql = `DELETE FROM RAW_MATERIALS WHERE material_id = '${req.body['DMaterialId']}'`;
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("Number of records deleted: " + result.affectedRows);
+    });
+})
+router.get('/read', (req,res) => {
+  console.log('In /RawMaterial file')
+  con.query("SELECT * FROM RAW_MATERIALS", function (err, result, fields) {
+  if (err) throw err;
+  res.json(result);
+  
+});
 })
 
 export default router;

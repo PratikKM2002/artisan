@@ -3,7 +3,7 @@ import body_parser from "body-parser";
 import cors from "cors";
 import http from "http";
 import distributor from './routes/distributor.js'
-import raw_materials from './routes/raw_materials.js'
+import raw_materials from './routes/RawMaterial.js'
 import gain_loss from './routes/gain_loss.js'
 import joined from './routes/joined.js'
 import products from './routes/products.js'
@@ -45,7 +45,7 @@ app.get('/',(req,res) => {
 //REGISTERING ROUTES
 app.use('/distributor', distributor) // CRUD
 app.use('/order',order) // CRUD
-app.use('/raw_materials',raw_materials) //CRUD
+app.use('/RawMaterial',raw_materials) //CRUD
 app.use('/employee',employee) //CRUD
 app.use('/joined',joined) //CRUD
 app.use('/products',products) //CRUD
