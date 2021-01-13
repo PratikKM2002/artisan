@@ -5,23 +5,27 @@ var router = express.Router()
 router.get('/', () => {
   console.log('connected ')
 })
+
 router.post('/create', (req, res) => {
   console.log('In /employee file')
     var sql = `INSERT INTO EMPLOYEE(emp_name,phone_no ,street_no, street_name, house_no,salary) VALUES ('${req.body['EmployeeName']}', '${req.body['EPhoneNum']}', '${req.body['StreetNumber']}','${req.body['StreetName']}','${req.body['HouseNumber']}','${req.body['Salary']}') `;
     con.query(sql, function (err, result) {
       if (err) throw err;
-      console.log("INSERTED");
-      res.json("Success!")
+      con.query("SELECT LAST_INSERT_ID() AS ID ", function (err, result, fields) { //returning the order_id of the last inserted order
+        console.log(result[0].ID)
+        res.json(result)
+      })
     });
 })
-
+ 
 router.post('/update', (req,res) => {
   console.log('In /employee file')
- 
+  console.log(req.body)
     var sql = `UPDATE EMPLOYEE SET emp_name = '${req.body['NewEmployeeName']}',phone_no = '${req.body['ENewPhoneNum']}',street_no = '${req.body['NewStreetNumber']}',street_name = '${req.body['NewStreetName']}',house_no = '${req.body['NewHouseNumber']}',salary = '${req.body['NewSalary']}' WHERE emp_id = '${req.body['EmployeeID']}'`;
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log(result.affectedRows + " record(s) updated");
+      res.json(result)
     });
   
 })
@@ -42,7 +46,6 @@ router.get('/read', (req,res) => {
   
 });
 })
-
 
 export default router;
 

@@ -46,6 +46,14 @@ router.get('/read', (req,res) => {
   
 });
 })
+router.get('/read1', (req,res) => {
+  console.log('In /distributor name file read')
+  con.query("SELECT distributor_name FROM DISTRIBUTOR", function (err, result, fields) {
+  if (err) throw err;
+  res.json(result);
+  
+});
+})
 export default router;
 
 /*con.connect(function(err) {

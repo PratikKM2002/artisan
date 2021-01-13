@@ -252,11 +252,12 @@ import MainLayout from '@/views/Layout.vue'
       },
       // called when you want to add a new product
       addprod(){
-        if(this.editedIndex!=-1 && this.flag1==false)
-          this.flag1=true     // to add a new product to the order while editing
+    // to add a new product to the order while editing
         var product= new Object();
         product.product_name='';
         product.prod_quantity='';
+        if(this.editedIndex!=-1) 
+          this.flag=true
         this.Products.push(product)
       },
       //to load all the product details on expanding
@@ -461,7 +462,7 @@ import MainLayout from '@/views/Layout.vue'
       // to delete an order
       Delete(Orderid) {
             this.$http.post('/order/delete', {
-            DOrderID: Orderid
+            DOrderID: order_id
             })
             .then(function (response) {
             console.log('success');

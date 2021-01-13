@@ -43,6 +43,15 @@ router.get('/read', (req,res) => {
 });
 })
 
+router.get('/read1', (req,res) => {
+  console.log('In /raw_material name file read')
+  con.query("SELECT material_name FROM RAW_MATERIAL", function (err, result, fields) {
+  if (err) throw err;
+  res.json(result);
+  
+});
+})
+
 export default router;
 /*con.connect(function(err) {
     if (err) throw err;

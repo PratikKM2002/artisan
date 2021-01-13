@@ -2,13 +2,13 @@ import { con } from "../db/db.js"
 import express from 'express';
 var router = express.Router()
 
-router.use('/', () => {
+router.get('/', () => {
   console.log('In /order file')
 })
 
-router.post('/create', (req, res) => {
+/*router.post('/create', (req, res) => {
   console.log('In /order file')
-    var sql = `INSERT INTO ORDERS(order_status,total_amt,dist_id,date_placed,date_delivered) VALUES ('${req.body['OrderStatus']}', '${req.body['DistID']}', '${req.body['DatePlaced']}','${req.body['DateDelivered']}') `;
+    var sql = `INSERT INTO ORDERS(order_status,total_amt,dist_name,date_placed,date_delivered) VALUES ('${req.body['OrderStatus']}','${req.body['TotalAmt']}','${req.body['DistributorName']}', '${req.body['DatePlaced']}','${req.body['DateDelivered']}') `;
     con.query(sql, function (err, result) {
       if (err) throw err;
       res.json({
@@ -21,7 +21,7 @@ router.post('/create', (req, res) => {
 router.post('/update', (req,res) => {
   console.log('In /order file')
  
-    var sql = `UPDATE ORDERS SET order_status = '${req.body['NewOrderStatus']}' WHERE order_status = '${req.body['OldOrderStatus']}'`;
+    var sql = `UPDATE ORDERS SET order_status = '${req.body['NewOrderStatus']}',total_amt = '${req.body['NewTotalAmount']}',dist_name = '${req.body['NewDistributorName']}',date_placed = '${req.body['NewDatePlaced']}',date_delivered = '${req.body['NewDateDelivered']}'WHERE order_id = '${req.body['OrderID']}'`;
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log(result.affectedRows + " record(s) updated");
@@ -31,7 +31,7 @@ router.post('/update', (req,res) => {
 
 router.post('/delete', (req,res) => {
   console.log('In /order file')
-    var sql = `DELETE FROM ORDERS WHERE order_status = '${req.body['DOrderStatus']}'`;
+    var sql = `DELETE FROM ORDERS WHERE order_id = '${req.body['DOrderID']}'`;
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log("Number of records deleted: " + result.affectedRows);
@@ -44,9 +44,9 @@ router.get('/read', (req,res) => {
   res.json(result);
   
 });
-})
+})*/
 
-//to insert the main information regareding an order
+//to insert the main information regarding an order
 router.post('/create', (req, res) => {
   console.log('In /order file')
   var sql = `SELECT distributor_id FROM DISTRIBUTOR WHERE distributor_name='${req.body['DistributorName']}' `;
@@ -58,7 +58,7 @@ router.post('/create', (req, res) => {
     }
     else
       date=req.body['DateDelivered']; //if it is null don't do anything
-    var sql = `INSERT INTO mydb.ORDER (order_status,total_amt,dist_id,date_placed,date_delivered) VALUES ('${req.body['OrderStatus']}','${req.body['TotalAmt']}', '${result[0].distributor_id}', '${req.body['DatePlaced']}',${date}) `;
+    var sql = `INSERT INTO mydb.ORDERS (order_status,total_amt,dist_id,date_placed,date_delivered) VALUES ('${req.body['OrderStatus']}','${req.body['TotalAmt']}', '${result[0].distributor_id}', '${req.body['DatePlaced']}',${date}) `;
     con.query(sql, function (err, result) {
       if (err) throw err;
       con.query("SELECT LAST_INSERT_ID() AS ID ", function (err, result, fields) { //returning the order_id of the last inserted order
@@ -85,7 +85,7 @@ router.post('/update', (req,res) => {
 
       //update required attributes of the order
 
-    var sql = `UPDATE mydb.ORDER SET order_status = '${req.body['NewOrderStatus']}',total_amt='${req.body['NewTotalAmount']}',dist_id='${result[0].distributor_id}',date_placed='${req.body['NewDatePlaced']}',date_delivered=${date} WHERE order_id = '${req.body['OrderID']}'`;
+    var sql = `UPDATE mydb.ORDERS SET order_status = '${req.body['NewOrderStatus']}',total_amt='${req.body['NewTotalAmount']}',dist_id='${result[0].distributor_id}',date_placed='${req.body['NewDatePlaced']}',date_delivered=${date} WHERE order_id = '${req.body['OrderID']}'`;
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log(result.affectedRows + " record(s) updated");
@@ -97,7 +97,7 @@ router.post('/update', (req,res) => {
 //to delete a particular order
 router.post('/delete', (req,res) => {
   console.log('In /order file')
-    var sql = `DELETE FROM mydb.ORDER WHERE order_id = '${req.body['DOrderID']}'`;
+    var sql = `DELETE FROM mydb.ORDERS WHERE order_id = '${req.body['DOrderID']}'`;
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log("Number of records deleted: " + result.affectedRows);
@@ -107,7 +107,7 @@ router.post('/delete', (req,res) => {
 //to read all the order details
 router.get('/read', (req,res) => {
   console.log('In /order file read')
-  con.query("SELECT DISTINCT order_id,order_status,total_amt,distributor_name,date_placed,date_delivered FROM mydb.ORDER,DISTRIBUTOR WHERE dist_id=distributor_id", function (err, result, fields) {
+  con.query("SELECT DISTINCT ORDERS.order_id,order_status,total_amt,distributor_name,date_placed,date_delivered FROM mydb.ORDERS,DISTRIBUTOR WHERE dist_id=distributor_id", function (err, result, fields) {
   if (err) throw err;
   res.json(result);
  
