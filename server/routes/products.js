@@ -2,8 +2,20 @@ import { con } from "../db/db.js"
 import express from 'express';
 var router = express.Router()
 
-router.get('/', () => {
+/*router.get('/', () => {
   console.log('Connected in /products file')
+})*/
+
+router.post('/read2', (req,res) => {
+  console.log('In /product amt')
+  console.log(req.body)
+  var sql=`SELECT product_price FROM PRODUCT WHERE product_name = '${req.body['ProdName']}'`;
+  con.query(sql, function (err, result, fields) {  //'${req.body['ProdName']}'
+  console.log(result)
+  if (err) throw err;
+  res.json(result);
+  
+});
 })
 
 //to obtain the product names to provide in the dropdown box

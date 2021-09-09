@@ -47,6 +47,11 @@ const routes = [
     component: () => import('../components/SignUp.vue')
   },
   {
+    path: '/',
+    name: 'signup2',
+    component: () => import('../components/SignUp2.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     component: () => import('../views/About.vue')
@@ -71,6 +76,7 @@ const routes = [
     name: 'ord',
     component: () => import('../views/Order.vue')
     },
+  
   {
     path: '/products',
     name: 'product',

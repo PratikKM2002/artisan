@@ -9,6 +9,7 @@ import joined from './routes/joined.js'
 import products from './routes/products.js'
 import order from './routes/order.js'
 import employee from './routes/employee.js'
+import SignUp2 from './routes/SignUp2.js'
 
 
 const app = express()
@@ -50,3 +51,4 @@ app.use('/employee',employee) //CRUD
 app.use('/joined',joined) //CRUD
 app.use('/products',products) //CRUD
 app.use('/gain_loss',gain_loss) //CRUD
+app.use('/SignUp2',SignUp2)

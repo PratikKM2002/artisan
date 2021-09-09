@@ -1,6 +1,6 @@
 <template>
 <div>
-<v-dialog v-model="dialog" persistent width="300px">
+<v-dialog v-model="dialog" persistent width="500px">
             <div>
                 <!--v-tabs v-model="tab" show-arrows background-color="deep-purple accent-4" icons-and-text dark grow-->
                     <!--v-tabs-slider color="purple darken-4"></v-tabs-slider-->
@@ -11,7 +11,7 @@
                     <!--v-tab color="purple darken-4">Login Form</v-tab-->
                     <!--v-tab-item-->
                         <v-card>
-                          <v-card-title class="purple darken-4 white--text">
+                          <v-card-title class="green white--text">
                              <span class="headline">Login Form</span>
                           </v-card-title>
                               <v-spacer></v-spacer>

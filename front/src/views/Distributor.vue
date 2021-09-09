@@ -1,14 +1,17 @@
 <template>
     <div>
       <MainLayout />
-        <v-main>
+        <v-main class="ml-15 mr-15 pt-6 pa-16">
+          <div class="ml-15 mr-15 pt-6 pa-16">
             <v-data-table :headers="headers" :items="Distributor" :search="search" sort-by="distributor_name" class="elevation-9 mt-15 ml-15 mr-15 mb-15">
                 <template v-slot:top>
                     <v-toolbar flat>
                         <v-toolbar-title>Distributor Details</v-toolbar-title>
                         <v-divider class="mx-4" inset vertical></v-divider>
                         <v-spacer></v-spacer>
+                        <v-col cols="5">
                         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search by Name" single-line hide-details class="mr-15"></v-text-field>
+                        </v-col>
                         <v-dialog v-model="dialog" max-width="500px">
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn color="green" dark class="mb-2" v-bind="attrs" v-on="on">New Distributor</v-btn>
@@ -60,6 +63,7 @@
                     <v-btn color="primary" @click="Read">Reset</v-btn>
                 </template>
             </v-data-table>
+            </div>
         </v-main>
     </div>
 </template>
@@ -75,13 +79,14 @@ import MainLayout from '@/views/Layout.vue'
       headers: [
         {
           text: 'Distributor Name',
-          align: 'start',
+          align: 'center',
           //sortable: false,
           value: 'distributor_name',
+          width:"240px"
         },
-        { text: 'Contact No.', value: 'contact_no',sortable: false,filterable:false },
-        { text: 'Present Order', value: 'order_id',filterable:false, },
-        { text: 'Actions', value: 'actions', sortable: false ,filterable:false,},
+        { text: 'Contact No.', value: 'contact_no',sortable: false,filterable:false,align: 'center', width:"240px" },
+        { text: 'Present Order', value: 'order_id',filterable:false,align: 'center', width:"240px" },
+        { text: 'Actions', value: 'actions', sortable: false ,filterable:false,align: 'center', width:"240px"},
       ],
       Distributor: [],
       editedIndex: -1,

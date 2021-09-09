@@ -9,7 +9,9 @@
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Title</v-toolbar-title>
+      <v-toolbar-title>Artisan Enterprise</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-title class="text-decoration-underline" @click="$router.push('/')">Logout</v-toolbar-title>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -76,8 +78,21 @@
 <script>
   export default {
     data: () => ({
-      drawer: false,
+      drawer: false,      
       group: null,
     }),
   }
 </script>
+
+<style>
+.v-toolbar__title{
+  font-family: Gill Sans Extrabold, sans-serif;
+  font-size: 1.4em !important;
+}
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > th, .v-data-table > .v-data-table__wrapper > table > thead > tr > th, .v-data-table > .v-data-table__wrapper > table > tfoot > tr > th {
+  font-size: 1em !important;
+}
+.v-list-item--dense .v-list-item__title, .v-list-item--dense .v-list-item__subtitle, .v-list--dense .v-list-item .v-list-item__title, .v-list--dense .v-list-item .v-list-item__subtitle {
+  font-size: 1.1em !important;
+}
+</style>

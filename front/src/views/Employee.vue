@@ -20,22 +20,22 @@
                                 <v-card-text>
                                     <v-container>
                                         <!--v-row-->
-                                            <v-col cols="9" >
+                                            <v-col cols="5" >
                                                 <v-text-field outlined dense v-model="editedItem.emp_name" label="Employee name"></v-text-field>
                                             </v-col>
-                                            <v-col cols="9" >
+                                            <v-col cols="5" >
                                                 <v-text-field outlined dense v-model="editedItem.phone_no" label="Contact No"></v-text-field>
                                             </v-col>
-                                            <v-col cols="9" >
+                                            <v-col cols="5" >
                                                 <v-text-field outlined dense v-model="editedItem.street_no" label="Street Number"></v-text-field>
                                             </v-col>
-                                            <v-col cols="9" >
+                                            <v-col cols="5" >
                                                 <v-text-field outlined dense v-model="editedItem.street_name" label="Street Name"></v-text-field>
                                             </v-col>
-                                            <v-col cols="9" >
+                                            <v-col cols="5" >
                                                 <v-text-field outlined dense v-model="editedItem.house_no" label="House Number"></v-text-field>
                                             </v-col>
-                                            <v-col cols="9" >
+                                            <v-col cols="5" >
                                                 <v-text-field outlined dense v-model="editedItem.salary" label="Salary"></v-text-field>
                                             </v-col>
                                         <!--/v-row-->
@@ -146,41 +146,42 @@ import MainLayout from '@/views/Layout.vue'
       headers: [
         {
           text: 'Employee ID',
-          align: 'start',
+          align: 'center',
           value: 'emp_id',
+          width:"140px"
         }, 
         {
           text: 'Employee Name',
-          align: 'start',
+          align: 'center',
           //sortable: false,
           value: 'emp_name',
         },       
-        { text: 'Contact No.', value: 'phone_no',sortable: false,filterable:false, },
-        { text: 'Street Number', value: 'street_no',sortable: false,filterable:false, },
-        { text: 'Street Name', value: 'street_name',sortable: false,filterable:false, },        
-        { text: 'House Number', value: 'house_no',filterable:false, },
-        { text: 'Salary', value: 'salary',filterable:false, },
-        { text: 'Actions', value: 'actions', sortable: false,filterable:false, },
+        { text: 'Contact No.', value: 'phone_no',sortable: false,filterable:false,align: 'center', },
+        { text: 'Street Number', value: 'street_no',sortable: false,filterable:false,align: 'center', },
+        { text: 'Street Name', value: 'street_name',sortable: false,filterable:false, align: 'center',},        
+        { text: 'House Number', value: 'house_no',filterable:false,align: 'center', },
+        { text: 'Salary', value: 'salary',filterable:false,align: 'center', },
+        { text: 'Actions', value: 'actions', sortable: false,filterable:false,align: 'center', },
         { text: '', value: 'data-table-expand' },
       ],
        headers2: [
         {
           text: 'Product',
-          align: 'start',
+          align: 'center',
           value: 'product_name',filterable:false,sortable: false,
         },       
-        { text: 'Count', value: 'prod_count',filterable:false,sortable: false, },
+        { text: 'Count', value: 'prod_count',filterable:false,sortable: false,align: 'center', },
       ],
       //column headers for the product entry table
       headers3: [
         {
           text: 'Sl.no',
-          align: 'start',
+          align: 'center',
           value:'number',
           filterable:false,sortable: false,
         },       
-        { text: 'Product',value:'name',filterable:false,sortable: false, },
-        { text: 'Count',value:'qty',sortable: false,filterable:false, },
+        { text: 'Product',value:'name',filterable:false,sortable: false,align: 'center', },
+        { text: 'Count',value:'qty',sortable: false,filterable:false,align: 'center', },
         { text: '', value: 'actions', sortable: false,filterable:false, },
       ],
       Products:[],
@@ -304,7 +305,7 @@ import MainLayout from '@/views/Layout.vue'
                  this.Prod=[]
               }
               else if(this.step==1 && this.Products.length==0){ 
-                alert("here")     // default if a new order is being entered
+                //alert("here")     // default if a new order is being entered
             var product= new Object();
             product.product_name='';
             product.prod_quantity='';

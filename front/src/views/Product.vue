@@ -1,14 +1,18 @@
 <template>
     <div>
       <MainLayout />
-        <v-main>
+        <v-main class="ml-15 mr-15 pt-6 pa-16">
+          <div class="ml-15 mr-15 pt-6 pa-16">
+            <div class="ml-15 mr-15 pt-6 pa-16">
             <v-data-table :headers="headers" :items="Product" :search="search"  sort-by="product_id" item-key="product_id" @item-expanded="loadDetails" single-expand show-expand :expanded.sync="expanded" class="elevation-9 mt-15 ml-15 mr-15 mb-15">
                 <template v-slot:top>
                     <v-toolbar flat>
                         <v-toolbar-title>Products</v-toolbar-title>
                         <v-divider class="mx-4" inset vertical></v-divider>
                         <v-spacer></v-spacer>
+                        <v-col cols="5">
                         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search by Name / ID" single-line hide-details class="mr-15"></v-text-field>
+                        </v-col>
                         <v-dialog v-model="dialog" max-width="800px">
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn color="green" dark class="mb-2" v-bind="attrs" v-on="on" @click="initialize">New Product</v-btn>
@@ -93,7 +97,7 @@
                     </v-toolbar>
                 </template>
                 <template v-slot:expanded-item="{ item }"> 
-                  <td :colspan="2">
+                  <td :colspan="3">
                     <v-data-table :headers="headers2" :items="Mat" class="elevation-9 mt-12 mb-8 mr-15 ml-15" hide-default-footer> 
                       <template v-slot:top>
                       <v-toolbar flat>
@@ -117,6 +121,8 @@
                     <v-btn color="primary" @click="Read">Reset</v-btn>
                 </template>
             </v-data-table>
+            </div>
+            </div>
         </v-main>
     </div>
 </template>
@@ -137,41 +143,40 @@ import MainLayout from '@/views/Layout.vue'
       dialogDelete: false,
       // filterable-search sortable-ascending/descending
       headers: [
-        { text: 'Product ID', value: 'product_id',sortable: false,width:"200px"},
+        { text: 'Product ID', value: 'product_id',sortable: false,width:"150px", align: 'center',},
         {
           text: 'Product Name',
-          align: 'start',
+          align: 'center',
           //sortable: false,
-          value: 'product_name',width:"300px"
+          value: 'product_name',width:"180px"
         },
-        { text: 'Product Price', value: 'product_price',filterable:false, },
-        { text: 'Quantity Made', value: 'quantity_made',sortable: false,filterable:false, },
-        { text: 'Actions', value: 'actions', sortable: false ,filterable:false,},
+        { text: 'Product Price', value: 'product_price',filterable:false,align: 'center',width:"150px" },
+        { text: 'Quantity Made', value: 'quantity_made',sortable: false,filterable:false,align: 'center', },
+        { text: 'Actions', value: 'actions', sortable: false ,filterable:false,align: 'center',},
         { text: '', value: 'data-table-expand' },
       ],
       headers2: [
         {
           text: 'Material Name',
-          align: 'start',
           value: 'material_name',
-          sortable: false,filterable:false 
+          sortable: false,filterable:false ,align: 'center',
         },
-        { text: 'Material Count', value: 'mat_count',sortable: false,filterable:false, },
+        { text: 'Material Count', value: 'mat_count',sortable: false,filterable:false, align: 'center',},
       ],
       headers3: [
         {
           text: 'Sl.no',
-          align: 'start',
+          align: 'center',
           value:'number',
           filterable:false,sortable: false,
         }, 
         {
           text: 'Material Name',
-          align: 'start',
+          align: 'center',
           value: 'name',
           sortable: false,filterable:false 
         },
-        { text: 'Material Count', value: 'qty',sortable: false,filterable:false, },
+        { text: 'Material Count', value: 'qty',sortable: false,filterable:false,align: 'center', },
         { text: '', value: 'actions', sortable: false,filterable:false, },
       ],
       Product: [],

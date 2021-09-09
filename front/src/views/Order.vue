@@ -11,7 +11,9 @@
                         <v-divider class="mx-4" inset vertical></v-divider>
                         <v-spacer></v-spacer>
                         <!-- THE SEARCH BAR -->
+                        <v-col cols="4">
                          <v-text-field v-model="search" append-icon="mdi-magnify" label="Search by Name / ID" single-line hide-details class="mr-15"></v-text-field>
+                        </v-col>
                         <v-dialog v-model="dialog" max-width="800px">
                             <template v-slot:activator="{ on,attrs }">
                               <!--BUTTON TO CREATE A NEW ORDER -->
@@ -30,11 +32,11 @@
                                             <v-col cols="5" >
                                                 <v-autocomplete dense :items="dist_names" outlined v-model="editedItem.distributor_name" label="Distributor Name"></v-autocomplete>
                                             </v-col>
-                                            <v-col cols="5" >
-                                                <v-text-field dense outlined v-model="editedItem.order_status" label="Order Status"></v-text-field>
+                                            <v-col cols="5" v-if="editedIndex==-1">
+                                                <v-text-field disabled dense outlined v-model="editedItem.order_status" label="Order Status" placeholder="Just Placed"></v-text-field>
                                             </v-col>
-                                            <v-col cols="5" >
-                                                <v-text-field dense outlined v-model="editedItem.total_amt" label="Total Amount"></v-text-field>
+                                            <v-col cols="5" v-if="editedIndex!=-1" >
+                                                <v-text-field dense outlined v-model="editedItem.order_status" label="Order Status"></v-text-field>
                                             </v-col>
                                             <v-col cols="5">
                                                   <v-text-field disabled dense v-model="editedItem.date_placed" label="Date Placed" outlined readonly v-bind="attrs" v-on="on"></v-text-field>
@@ -73,13 +75,19 @@
                                                 {{index+1}} <!-- SL.NO -->
                                             </template>
                                             <template v-slot:[`item.name`]={item}>
-                                              <v-autocomplete v-if="editedIndex==-1 ||  flag1==true" v-model="item.product_name" class="mt-5" dense outlined :items="prod_names" ></v-autocomplete> <!-- USED WHILE ENTERING A PRODUCT -->
+                                              <v-autocomplete v-if="editedIndex==-1 ||  item.flag==true" v-model="item.product_name" class="mt-5" dense outlined :items="prod_names" ></v-autocomplete> <!-- USED WHILE ENTERING A PRODUCT -->
                                               <v-text-field v-else v-model="item.product_name" class="mt-5" dense outlined disabled></v-text-field><!-- USED WHEN YOU ONLY WANT TO UPDATE THE QUANTITY OF ANN EXISTING PRODUCT -->
                                             </template>
                                             <template v-slot:[`item.qty`]={item}>
-                                            <v-text-field v-model="item.prod_quantity" class="mt-5" dense outlined></v-text-field>
+                                            <v-text-field v-model="item.prod_quantity" @input="updateAmount(item)" class="mt-5" dense outlined></v-text-field>
                                             </template>
-                                            <template v-slot:[`item.actions`]>
+                                            <template v-slot:[`item.amt`]={item}>
+                                            <v-text-field disabled v-model="item.amt" class="mt-5" dense outlined></v-text-field>
+                                            </template>
+                                            <template v-slot:[`item.product_price`]={item}>
+                                            <v-text-field disabled v-model="item.product_price" class="mt-5" dense outlined></v-text-field>
+                                            </template>
+                                            <template v-slot:[`item.actions`]={item}>
                                               <v-icon rounded class="mb-1" small color="red" @click="deleteProd(item)">mdi-minus</v-icon> <!-- USED TO DELETED A ROW FROM THE INSERT / EDIT FORM -->
                                             </template>
                                             <!-- WHAT TO DISPLAY IF THERE ARE NO PRODUCTS -->
@@ -87,6 +95,14 @@
                                               Order contains no items
                                             </template>
                                             </v-data-table>
+
+                                            <template>
+                                              <v-row >
+                                            <v-col cols="3" offset-md="9">
+                                                <v-text-field dense outlined v-model="editedItem.total_amt" label="Total Amount"></v-text-field>
+                                            </v-col>
+                                            </v-row>
+                                            </template>
                                 <template>
                                   <!--- TO ADD A NEW PRODUCT ENTRY ROW -->
                                 <v-btn absolute right small elevation="2" @click="addprod"><v-icon> mdi-plus</v-icon></v-btn>
@@ -169,15 +185,15 @@ import MainLayout from '@/views/Layout.vue'
       headers: [
         {
           text: 'Order ID',
-          align: 'start',
+          align: 'center',
           value: 'order_id',
           width:"150px"
         },   
-        { text: 'Distributor Name', value: 'distributor_name',sortable: false,width:"200px" }, 
-        { text: 'Total Amount', value: 'total_amt',sortable: false,filterable:false, },   
-        { text: 'Order Status', value: 'order_status',filterable:false,width:"200px"},
-        { text: 'Date Placed', value: 'date_placed',sortable: false,filterable:false,},
-        { text: 'Date Delivered', value: 'date_delivered',sortable: false,filterable:false,},
+        { text: 'Distributor Name', value: 'distributor_name',sortable: false,width:"200px",align: 'center', }, 
+        { text: 'Total Amount', value: 'total_amt',sortable: false,filterable:false,align: 'center', },   
+        { text: 'Order Status', value: 'order_status',filterable:false,width:"200px",align: 'center',},
+        { text: 'Date Placed', value: 'date_placed',sortable: false,filterable:false,align: 'center',},
+        { text: 'Date Delivered', value: 'date_delivered',sortable: false,filterable:false,align: 'center',},
         { text: 'Actions', value: 'actions', sortable: false,filterable:false, },
         { text: '', value: 'data-table-expand' },
       ],
@@ -185,22 +201,25 @@ import MainLayout from '@/views/Layout.vue'
       headers2: [
         {
           text: 'Product',
-          align: 'start',
+          align: 'center',
           value: 'product_name',filterable:false,sortable: false,
         },       
-        { text: 'Quantity', value: 'prod_quantity',filterable:false,sortable: false, },
-        { text: 'Amount', value: 'amt',sortable: false,filterable:false, },
+        { text: 'Quantity', value: 'prod_quantity',filterable:false,sortable: false,align: 'center', },
+         { text: 'Price', value: 'product_price',filterable:false,sortable: false,align: 'center', },
+        { text: 'Amount', value: 'amt',sortable: false,filterable:false,align: 'center', },
       ],
       //column headers for the product entry table
       headers3: [
         {
           text: 'Sl.no',
-          align: 'start',
+          align: 'center',
           value:'number',
           filterable:false,sortable: false,
         },       
-        { text: 'Product',value:'name',filterable:false,sortable: false, },
-        { text: 'Qty',value:'qty',sortable: false,filterable:false, },
+        { text: 'Product',value:'name',filterable:false,sortable: false,align: 'center', },
+        { text: 'Qty',value:'qty',sortable: false,filterable:false, align: 'center',},
+        { text: 'Price', value: 'product_price',filterable:false,sortable: false,align: 'center', },
+        { text: 'Amount', value: 'amt',sortable: false,filterable:false,align: 'center', },
         { text: '', value: 'actions', sortable: false,filterable:false, },
       ],
       Products:[],      //contains the products that is displayed in the order form
@@ -209,16 +228,16 @@ import MainLayout from '@/views/Layout.vue'
       editedIndex: -1,
       editedItem: {
         order_id:'',
-        order_status:'',
-        total_amt: '',
+        order_status:'just placed',
+        total_amt: 0,
         distributor_name: '',
         date_placed:new Date().toISOString().substr(0, 10),       //to append the current date
         date_delivered:'',
       },
       defaultItem: {
         order_id: '',
-        order_status:'',
-        total_amt: '',
+        order_status:'just placed',
+        total_amt: 0,
         distributor_name: '',
         date_placed:new Date().toISOString().substr(0, 10),
         date_delivered:'',
@@ -245,6 +264,32 @@ import MainLayout from '@/views/Layout.vue'
       this.loadNameDetails();       //to load all the product and distributor names for the dropdown boxes
     },
     methods: {
+      updateAmount(item) {
+        //alert("here")
+        this.Find(item.product_name,item);
+        //alert("here")
+        //item.amt = item.prod_quantity*this.amt;
+    },
+    Find(prodname,item){
+      var that=this;
+              //reads the product names
+              //alert("here")
+              //alert(prodname)
+              this.$http.post('/products/read2', {
+                ProdName:prodname
+            })
+            .then(function (response) {
+              console.log(response)
+                item.product_price= response.data[0].product_price;
+                item.amt= item.prod_quantity*item.product_price;
+                that.editedItem.total_amt=that.editedItem.total_amt+item.amt;
+                //alert(item.amt)
+                //return
+              })
+            .catch(function (error) {
+            console.log(error);
+            });
+    },
       // called everytime a new order is placed to keep the default as no products
       initialize(){
         if(this.editedIndex==-1)
@@ -256,8 +301,10 @@ import MainLayout from '@/views/Layout.vue'
         var product= new Object();
         product.product_name='';
         product.prod_quantity='';
+        product.amt='';   //changed
+        product.product_price='';
         if(this.editedIndex!=-1) 
-          this.flag=true
+          product.flag=true
         this.Products.push(product)
       },
       //to load all the product details on expanding
@@ -347,6 +394,8 @@ import MainLayout from '@/views/Layout.vue'
             var product= new Object();
             product.product_name='';
             product.prod_quantity='';
+            product.amt='';   //changed
+        product.product_price='';
                 this.Products.push(product)
               }
             },
@@ -364,6 +413,7 @@ import MainLayout from '@/views/Layout.vue'
       //to delete a product in an order
       deleteProd(item){
          var index = this.Products.indexOf(item)
+         this.editedItem.total_amt=this.editedItem.total_amt-item.amt;
        this.Products.splice(index, 1)
        if(this.editedIndex!=-1){
          this.DeleteProduct(this.editedItem.order_id)
@@ -432,7 +482,8 @@ import MainLayout from '@/views/Layout.vue'
         this.$http.post('/joined/create1', {
           OrderID: id,
           ProductName:pro.product_name,
-          ProductQty:pro.prod_quantity
+          ProductQty:pro.prod_quantity,
+          ProdAmt:pro.amt
         }).then(function (response) {
           console.log(response)
         }).catch(function (error) {
@@ -450,7 +501,8 @@ import MainLayout from '@/views/Layout.vue'
         this.$http.post('/joined/update1', {
           OrderID: id,
           NewProductName:pro.product_name,
-          NewProductQty:pro.prod_quantity
+          NewProductQty:pro.prod_quantity,
+          NewProdAmt:pro.amt
         }).then(function (response) {
           console.log(response)
           if(response.data.affectedRows==0)   // this implies thst that particular order didn't originally exists i.e. it has been newly added
